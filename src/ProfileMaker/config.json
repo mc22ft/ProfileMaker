@@ -3,6 +3,7 @@
     "SiteEmailAddress": "me@aol.com"
   },
   "Data": {
-    "WorldContextConnection": "Server=(localdb)\\ProjectsV12;Database=TheWorldDB;Trusted_Connection=true;MultipleActiveResultSets=true;"
+    "WorldContextConnection": "Server=(localdb)\\ProjectsV12;Database=TheWorldDB;Trusted_Connection=true;MultipleActiveResultSets=true;",
+    "ProfileMakerContextConnection": "Server=(localdb)\\ProjectsV12;Database=TheProfileMakerDB;Trusted_Connection=true;MultipleActiveResultSets=true;"
   }
 }

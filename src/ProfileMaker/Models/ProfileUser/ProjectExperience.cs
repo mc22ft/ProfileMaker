@@ -3,14 +3,14 @@ using System.Collections.Generic;
 
 namespace ProfileMaker.Models
 {
-    public class ProjectExperiences
+    public class ProjectExperience
     {
         public int Id { get; set; }
         public string CompanyName { get; set; }
-       
         public DateTime StartDate { get; set; }
         public DateTime StopDate { get; set; }
         public string Summary { get; set; }
-        public List<String> TechnicalEnvironment { get; set; }
+        public ICollection<TechnicalEnvironment> TechnicalEnvironments { get; set; }
+        public int Order { get; set; }
     }
 }

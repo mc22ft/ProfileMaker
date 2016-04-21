@@ -39,7 +39,8 @@ namespace ProfileMaker
 
             services.AddEntityFramework()
                 .AddSqlServer()
-                .AddDbContext<WorldContext>();
+                .AddDbContext<WorldContext>()
+                .AddDbContext<ProfileMakerContext>();
 
             services.AddScoped<CoordService>();
             services.AddTransient<WorldContextSeedData>();

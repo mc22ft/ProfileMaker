@@ -20,10 +20,10 @@ namespace ProfileMaker.Models
         public DateTime Date { get; set; } = DateTime.Now;
         public string Summary { get; set; }
 
-        public List<String> OtherCourses { get; set; }
-        public List<String> TechniqueAreas { get; set; }
+        public ICollection<OtherCourse> OtherCourses { get; set; }
+        public ICollection<TechniqueArea> TechniqueAres { get; set; }
 
         public ICollection<Education> Educations { get; set; }
-        public ICollection<ProjectExperiences> ProjectExperienceses { get; set; }
+        public ICollection<ProjectExperience> ProjectExperiences { get; set; }
     }
 }

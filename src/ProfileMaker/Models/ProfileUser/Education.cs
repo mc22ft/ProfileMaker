@@ -8,5 +8,6 @@ namespace ProfileMaker.Models
         public string SchoolName { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime StopDate { get; set; }
+        public int Order { get; set; }
     }
 }
