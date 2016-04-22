@@ -15,7 +15,7 @@
 ###dnx stuff
 * lägga till speciell migrations: dnx ef migrations add -c ProfileMakerContext InitialDatabaseProfileMaker
 * ta bort en senaste migrations: dnx ef migrations remove
-* 
+* TIPS: http://www.bricelam.net/2014/09/14/migrations-on-k.html
 
 
 
