@@ -14,26 +14,24 @@ namespace ProfileMaker.Controllers.Web
     {
         private IMailService _mailSevice;
         private IWorldRepository _repository;
-        private ProfileMakerContext _profileMakerContext;
+        private IProfileMakerRepository _profileMakerRepository;
 
         public AppController(IMailService service, 
             IWorldRepository repository,
-            ProfileMakerContext profileMakerContext)
+            IProfileMakerRepository profileMakerRepository)
         {
             _mailSevice = service;
             _repository = repository;
-            _profileMakerContext = profileMakerContext;
+            _profileMakerRepository = profileMakerRepository;
         }
-
-
 
         public IActionResult Index()
         {
             //ProfileUser
-            var users = _profileMakerContext.ProfileUsers.OrderBy(t => t.FirstName).ToList();
-            //World
+            var users = _profileMakerRepository.GetAllProfileUsers();
+                //World
             var trips = _repository.GetAllTrips();
-            return View(trips);
+            return View(users);
         }
         public IActionResult About()
         {

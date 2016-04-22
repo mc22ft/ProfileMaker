@@ -12,16 +12,17 @@ namespace ProfileMaker.Models
         public string LastName { get; set; }
         public string Email { get; set; }
         public string UserImage { get; set; }
-        public string CopanyName { get; set; }
+        public string CompanyName { get; set; }
         public string Address { get; set; }
         public int PostNumber { get; set; }
         public string City { get; set; }
         public string Country { get; set; }
+        //[DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")] TIPS!
         public DateTime Date { get; set; } = DateTime.Now;
         public string Summary { get; set; }
 
         public ICollection<OtherCourse> OtherCourses { get; set; }
-        public ICollection<TechniqueArea> TechniqueAres { get; set; }
+        public ICollection<TechniqueArea> TechniqueAreas { get; set; }
 
         public ICollection<Education> Educations { get; set; }
         public ICollection<ProjectExperience> ProjectExperiences { get; set; }

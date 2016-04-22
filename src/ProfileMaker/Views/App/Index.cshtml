@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ProfileMaker.Models.Trip>
+﻿@model IEnumerable<ProfileMaker.Models.ProfileUser>
 
 
 @{ 
@@ -27,10 +27,14 @@
     <div class="col-md-6">
         <h2>Map</h2>
         <ul>
-            @foreach (var trip in Model)
+            @*@foreach (var trip in Model)
             {
                 <li>@trip.Name (@trip.Created.ToShortDateString())</li>
 
+            }*@
+            @foreach (var users in Model)
+            {
+                <li>@users.FirstName (@users.Date)</li>
             }
         </ul>
     </div>

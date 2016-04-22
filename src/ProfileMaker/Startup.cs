@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Serialization;
 using AutoMapper;
 using ProfileMaker.ViewModels;
+using ProfileMaker.Models.Seeds;
 
 namespace ProfileMaker
 {
@@ -43,8 +44,12 @@ namespace ProfileMaker
                 .AddDbContext<ProfileMakerContext>();
 
             services.AddScoped<CoordService>();
+            //Add data to Database
             services.AddTransient<WorldContextSeedData>();
+            services.AddTransient<ProfileMakerContextSeedData>();
+
             services.AddScoped<IWorldRepository, WorldRepository>();
+            services.AddScoped<IProfileMakerRepository, ProfileMakerRepository>();
 
 #if DEBUG
             services.AddScoped<IMailService, DebugMailService>();
@@ -54,7 +59,7 @@ namespace ProfileMaker
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, WorldContextSeedData seeder, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, WorldContextSeedData seederWorld, ProfileMakerContextSeedData seederProfileMaker , ILoggerFactory loggerFactory)
         {
             loggerFactory.AddDebug(LogLevel.Warning);
 
@@ -75,7 +80,8 @@ namespace ProfileMaker
                     );
             });
 
-            seeder.EnsureSeedData();
+            seederWorld.EnsureSeedData();
+            seederProfileMaker.EnsureSeedData();
         }
 
         // Entry point for the application.
