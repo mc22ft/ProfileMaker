@@ -10,6 +10,7 @@ using Newtonsoft.Json.Serialization;
 using AutoMapper;
 using ProfileMaker.ViewModels;
 using ProfileMaker.Models.Seeds;
+using ProfileMaker.Controllers.Api;
 
 namespace ProfileMaker
 {
@@ -67,8 +68,14 @@ namespace ProfileMaker
 
             Mapper.Initialize(config =>
             {
+                //world
                 config.CreateMap<Trip, TripViewModel>().ReverseMap();
                 config.CreateMap<Stop, StopViewModel>().ReverseMap();
+
+                //ProfileMaker
+                config.CreateMap<ProfileUser, ProfileUserViewModel>().ReverseMap();
+                config.CreateMap<OtherCourse, OtherCourseViewModel>().ReverseMap();
+
             });
 
             app.UseMvc(config =>

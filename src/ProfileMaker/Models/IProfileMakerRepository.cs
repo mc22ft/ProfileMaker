@@ -6,5 +6,8 @@ namespace ProfileMaker.Models
     {
         IEnumerable<ProfileUser> GetAllProfileUsers();
         IEnumerable<ProfileUser> GetAllProfileUsersWithAllInfo();
+        void AddTrip(ProfileUser newProfileUser);
+        bool SaveAll();
+        ProfileUser GetProfileUserByName(string profileUserName);
     }
 }

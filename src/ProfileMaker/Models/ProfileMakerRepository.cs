@@ -18,6 +18,10 @@ namespace ProfileMaker.Models
             _logger = logger;
         }
 
+        public void AddTrip(ProfileUser newProfileUser)
+        {
+            _context.Add(newProfileUser);
+        }
 
         public IEnumerable<ProfileUser> GetAllProfileUsers()
         {
@@ -30,7 +34,6 @@ namespace ProfileMaker.Models
                 _logger.LogError("Could not get users from database", ex);
                 return null;
             }
-           
         }
 
         public IEnumerable<ProfileUser> GetAllProfileUsersWithAllInfo()
@@ -38,13 +41,13 @@ namespace ProfileMaker.Models
             try
             {
                 return _context.ProfileUsers
-               .Include(p => p.Educations)
-               .Include(p => p.OtherCourses)
-               .Include(p => p.TechniqueAreas)
-               .Include(p => p.ProjectExperiences)
-               //TechnicalEnvironments in?
-               .OrderBy(p => p.FirstName)
-               .ToList();
+                   .Include(p => p.Educations)
+                   .Include(p => p.OtherCourses)
+                   .Include(p => p.TechniqueAreas)
+                   .Include(p => p.ProjectExperiences)
+                   .ThenInclude(t => t.TechnicalEnvironments)
+                   .OrderBy(p => p.FirstName)
+                   .ToList();
             }
             catch (Exception ex)
             {
@@ -52,6 +55,18 @@ namespace ProfileMaker.Models
                 return null;
             }
            
+        }
+
+        public ProfileUser GetProfileUserByName(string profileUserName)
+        {
+            return _context.ProfileUsers.Include(t => t.OtherCourses)
+               .Where(t => t.FirstName == profileUserName)
+               .FirstOrDefault();
+        }
+
+        public bool SaveAll()
+        {
+            return _context.SaveChanges() > 0;
         }
     }
 }

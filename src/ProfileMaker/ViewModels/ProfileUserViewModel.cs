@@ -1,11 +1,12 @@
-﻿using System;
+﻿using ProfileMaker.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ProfileMaker.Models
+namespace ProfileMaker.ViewModels
 {
-    public class ProfileUser
+    public class ProfileUserViewModel
     {
         public int Id { get; set; }
         public string FirstName { get; set; }
@@ -18,13 +19,13 @@ namespace ProfileMaker.Models
         public string City { get; set; }
         public string Country { get; set; }
         //[DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")] TIPS!
-        public DateTime Date { get; set; }
+        public DateTime Date { get; set; } = DateTime.Now;
         public string Summary { get; set; }
 
-        public ICollection<OtherCourse> OtherCourses { get; set; }
-        public ICollection<TechniqueArea> TechniqueAreas { get; set; }
+        public IEnumerable<OtherCourse> OtherCourses { get; set; }
+        //public ICollection<TechniqueArea> TechniqueAreas { get; set; }
 
-        public ICollection<Education> Educations { get; set; }
-        public ICollection<ProjectExperience> ProjectExperiences { get; set; }
+        //public ICollection<Education> Educations { get; set; }
+        //public ICollection<ProjectExperience> ProjectExperiences { get; set; }
     }
 }

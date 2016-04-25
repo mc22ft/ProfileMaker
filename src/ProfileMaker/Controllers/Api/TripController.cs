@@ -28,7 +28,6 @@ namespace ProfileMaker.Controllers.Api
         public JsonResult Get()
         {
             var restults = Mapper.Map<IEnumerable<TripViewModel>>(_repository.GetAllTripsWithStops());
-            
             return Json(restults);
         }
 
@@ -56,7 +55,7 @@ namespace ProfileMaker.Controllers.Api
             }
             catch (Exception ex)
             {
-                _logger.LogError("Failde to save new trip", ex);
+                //_logger.LogError("Failde to save new trip", ex);
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 return Json(new { Message = ex.Message });
             }
