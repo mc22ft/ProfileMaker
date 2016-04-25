@@ -16,6 +16,7 @@
 * lägga till speciell migrations: dnx ef migrations add -c ProfileMakerContext InitialDatabaseProfileMaker
 * ta bort en speciell migration: dnx ef migrations remove -c ProfileMakerContext
 * ta bort en senaste migrations: dnx ef migrations remove
+* lagga till speciell migrations för inloggning: dnx ef migrations add -c ProfileMakerContext IdentityEntities
 * TIPS: http://www.bricelam.net/2014/09/14/migrations-on-k.html
 
 
