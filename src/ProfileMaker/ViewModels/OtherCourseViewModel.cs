@@ -1,6 +1,6 @@
 ﻿namespace ProfileMaker.Controllers.Api
 {
-    internal class OtherCourseViewModel
+    public class OtherCourseViewModel
     {
         public int Id { get; set; }
         public string Name { get; set; }

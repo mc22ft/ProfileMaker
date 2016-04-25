@@ -9,5 +9,6 @@ namespace ProfileMaker.Models
         void AddTrip(ProfileUser newProfileUser);
         bool SaveAll();
         ProfileUser GetProfileUserByName(string profileUserName);
+        void AddOtherCourse(string profileUserFirstName, OtherCourse newOtherCourse);
     }
 }

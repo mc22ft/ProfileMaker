@@ -18,6 +18,14 @@ namespace ProfileMaker.Models
             _logger = logger;
         }
 
+        public void AddOtherCourse(string profileUserFirstName, OtherCourse newOtherCourse)
+        {
+            var theProfileUser = GetProfileUserByName(profileUserFirstName);
+            newOtherCourse.Order = theProfileUser.OtherCourses.Max(s => s.Order) + 1;
+            theProfileUser.OtherCourses.Add(newOtherCourse);
+            _context.OtherCourses.Add(newOtherCourse);
+        }
+
         public void AddTrip(ProfileUser newProfileUser)
         {
             _context.Add(newProfileUser);

@@ -43,6 +43,7 @@ namespace ProfileMaker.Controllers.Api
             catch (Exception ex)
             {
                 _logger.LogError($"Failed to get stops for trip {tripName}", ex);
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 return Json("Error occured finding trip name");
             }
             
