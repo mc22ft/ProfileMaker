@@ -12,6 +12,7 @@ namespace ProfileMaker.ViewModels
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
+        public string UserName { get; set; }
         public string UserImage { get; set; }
         public string CompanyName { get; set; }
         public string Address { get; set; }
@@ -19,7 +20,7 @@ namespace ProfileMaker.ViewModels
         public string City { get; set; }
         public string Country { get; set; }
         //[DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")] TIPS!
-        public DateTime Date { get; set; } = DateTime.Now;
+        public DateTime Created { get; set; } = DateTime.Now;
         public string Summary { get; set; }
 
         public IEnumerable<OtherCourse> OtherCourses { get; set; }

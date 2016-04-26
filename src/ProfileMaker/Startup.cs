@@ -11,6 +11,7 @@ using AutoMapper;
 using ProfileMaker.ViewModels;
 using ProfileMaker.Models.Seeds;
 using ProfileMaker.Controllers.Api;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace ProfileMaker
 {
@@ -37,6 +38,15 @@ namespace ProfileMaker
                     opt.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 });
 
+            //login setup
+            services.AddIdentity<ProfileMakerUser, IdentityRole>(config =>
+            {
+                config.User.RequireUniqueEmail = true;
+                config.Password.RequiredLength = 8;
+                config.Cookies.ApplicationCookie.LoginPath = "/Auth/Login";
+            })
+            .AddEntityFrameworkStores<ProfileMakerContext>();
+
             services.AddLogging();
 
             services.AddEntityFramework()
@@ -60,11 +70,15 @@ namespace ProfileMaker
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, WorldContextSeedData seederWorld, ProfileMakerContextSeedData seederProfileMaker , ILoggerFactory loggerFactory)
+        public async void Configure(IApplicationBuilder app, WorldContextSeedData seederWorld, ProfileMakerContextSeedData seederProfileMaker , ILoggerFactory loggerFactory)
         {
+            //Order of this - importent!!
+
             loggerFactory.AddDebug(LogLevel.Warning);
 
             app.UseStaticFiles();
+
+            app.UseIdentity();
 
             Mapper.Initialize(config =>
             {
@@ -88,7 +102,7 @@ namespace ProfileMaker
             });
 
             seederWorld.EnsureSeedData();
-            seederProfileMaker.EnsureSeedData();
+            await seederProfileMaker.EnsureSeedDataAsync();
         }
 
         // Entry point for the application.

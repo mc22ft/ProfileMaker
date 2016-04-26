@@ -11,6 +11,7 @@ namespace ProfileMaker.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
+        public string UserName { get; set; }
         public string UserImage { get; set; }
         public string CompanyName { get; set; }
         public string Address { get; set; }
@@ -18,7 +19,7 @@ namespace ProfileMaker.Models
         public string City { get; set; }
         public string Country { get; set; }
         //[DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")] TIPS!
-        public DateTime Date { get; set; }
+        public DateTime Created { get; set; }
         public string Summary { get; set; }
 
         public ICollection<OtherCourse> OtherCourses { get; set; }

@@ -3,10 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace ProfileMaker.Models
 {
-    public class ProfileMakerContext : DbContext
+    public class ProfileMakerContext : IdentityDbContext<ProfileMakerUser>
     {
         public ProfileMakerContext()
         {

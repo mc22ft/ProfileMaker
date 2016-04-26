@@ -6,38 +6,11 @@
 }
 
 <div class="row">
-    <div class="col-md-6">
-        <h1>Profile Maker!</h1>
-        <p>This is my webb!</p>
-
-        <form>
-            <div class="form-group">
-                <label>Date</label>
-                <input class="form-control" />
-            </div>
-            <div class="form-group">
-                <label>Location</label>
-                <input class="form-control" />
-            </div>
-            <div>
-                <input type="submit" value="add" class="btn btn-success" />
-            </div>
-        </form>
-    </div>
-    <div class="col-md-6">
-        <h2>Map</h2>
-        <ul>
-            @*@foreach (var trip in Model)
-            {
-                <li>@trip.Name (@trip.Created.ToShortDateString())</li>
-
-            }*@
-            @foreach (var users in Model)
-            {
-                <li>@users.FirstName (@users.Date)</li>
-            }
-        </ul>
-    </div>
+   <div class="col-md-12">
+       <h1>Välkommen till ProfileMaker!</h1>
+       <p>Här kan du spara CV och ahntera det...</p>
+       <a asp-controller="App" asp-action="ProfileUser" class="btn btn-lf btn-success">Titta på min profil</a>
+   </div>
 </div>
 
    

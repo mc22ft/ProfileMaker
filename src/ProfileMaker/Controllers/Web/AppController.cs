@@ -1,3 +1,4 @@
+using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Mvc;
 using ProfileMaker.Models;
 using ProfileMaker.Services;
@@ -27,9 +28,15 @@ namespace ProfileMaker.Controllers.Web
 
         public IActionResult Index()
         {
+            return View();
+        }
+
+        [Authorize]
+        public IActionResult ProfileUser()
+        {
             //ProfileUser
             var users = _profileMakerRepository.GetAllProfileUsers();
-                //World
+            //World - Not in use...
             var trips = _repository.GetAllTrips();
             return View(users);
         }

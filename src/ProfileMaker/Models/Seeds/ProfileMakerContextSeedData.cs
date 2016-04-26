@@ -1,4 +1,5 @@
-﻿using Microsoft.Data.Entity;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.Data.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,14 +11,27 @@ namespace ProfileMaker.Models.Seeds
     {
 
         private ProfileMakerContext _context;
+        private UserManager<ProfileMakerUser> _userManager;
 
-        public ProfileMakerContextSeedData(ProfileMakerContext context)
+        public ProfileMakerContextSeedData(ProfileMakerContext context, UserManager<ProfileMakerUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
-        public void EnsureSeedData()
+        public async Task EnsureSeedDataAsync()
         {
+            if (await _userManager.FindByEmailAsync("mathias@mail.com") == null)
+            {
+                //add the user
+                var newUser = new ProfileMakerUser()
+                {
+                    UserName = "Mathias",
+                    Email = "mathias@mail.com"
+                };
+
+                await _userManager.CreateAsync(newUser, "password");
+            }
             if (!_context.ProfileUsers.Any())
             {
                 //Add new data
@@ -32,7 +46,7 @@ namespace ProfileMaker.Models.Seeds
                     PostNumber = 12066,
                     City = "Stockholm",
                     Country = "Sverige",
-                    Date = DateTime.Now,
+                    Created = DateTime.Now,
                     Summary = "Pluggar på LNU och är klar till sommaren. Lever med sambo och två barn!",
 
                     OtherCourses = new List<OtherCourse>()
