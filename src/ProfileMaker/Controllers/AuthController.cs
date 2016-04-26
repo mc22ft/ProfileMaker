@@ -11,20 +11,19 @@ namespace ProfileMaker.Controllers
 {
     public class AuthController : Controller
     {
-        private SignInManager<ProfileUser> _signInManager;
+        private SignInManager<ProfileMakerUser> _signInManager;
 
-        public AuthController(SignInManager<ProfileUser> signInManager)
+        public AuthController(SignInManager<ProfileMakerUser> signInManager)
         {
             _signInManager = signInManager;
         }
+
         public IActionResult Login()
         {
             if (User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("ProfileUser", "App");
             }
-
-
             return View();
         }
 
@@ -34,11 +33,11 @@ namespace ProfileMaker.Controllers
             if (ModelState.IsValid)
             {
                 var signInResult = await _signInManager.PasswordSignInAsync(vm.UserName,
-                                                                      vm.Password,
-                                                                      true, false);
+                                                                            vm.Password,
+                                                                            true, false);
                 if (signInResult.Succeeded)
                 {
-                    if (string.IsNullOrWhiteSpace(returnUrl)
+                    if (string.IsNullOrWhiteSpace(returnUrl))
                     {
                         return RedirectToAction("ProfileUser", "App");
                     }
@@ -46,16 +45,23 @@ namespace ProfileMaker.Controllers
                     {
                         return Redirect(returnUrl);
                     }
-                   
                 }
                 else
                 {
                     ModelState.AddModelError("", "Username or password incorrect");
                 }
             }
-
-
             return View();
+        }
+
+        public async Task<ActionResult> Logout()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                await _signInManager.SignOutAsync();
+            }
+
+            return RedirectToAction("Index", "App");
         }
     }
 }

@@ -13,13 +13,22 @@
 </head>
 <body>
     <div id="sidebar">
-        <img src="#" alt="HeadShot" class="headshot" />
-        <span id="username">Mathias Claesson</span>
-
+        @if (User.Identity.IsAuthenticated)
+        {
+            <img src="#" alt="HeadShot" class="headshot" />
+            <span id="username">@User.Identity.Name</span>
+        }
+       
         <ul class="nav">
             <li class="active"><a asp-controller="App" asp-action="Index">Hem</a></li>
             <li><a asp-controller="App" asp-action="About">Om</a></li>
             <li><a asp-controller="App" asp-action="Contact">Kontakt</a></li>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <li><a asp-controller="App" asp-action="ProfilUser">Min profil</a></li>
+                <li><a asp-controller="Auth" asp-action="Logout">Logga ut</a></li>
+            }
+
         </ul>
 
     </div>

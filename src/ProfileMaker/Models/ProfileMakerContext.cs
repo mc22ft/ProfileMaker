@@ -13,6 +13,7 @@ namespace ProfileMaker.Models
         {
             Database.EnsureCreated();
         }
+        
 
         //Main model
         public DbSet<ProfileUser> ProfileUsers { get; set; }

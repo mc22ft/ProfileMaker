@@ -26,12 +26,22 @@ namespace ProfileMaker.Models.Seeds
                 //add the user
                 var newUser = new ProfileMakerUser()
                 {
-                    UserName = "Mathias",
+                    UserName = "mathias",
                     Email = "mathias@mail.com"
                 };
 
-                await _userManager.CreateAsync(newUser, "password");
+                IdentityResult result = await _userManager.CreateAsync(newUser, "Apelsin!0038");
+                if (result.Succeeded)
+                {
+                    //await SignInAsync(user, isPersistent: false);
+                    //return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    //AddErrors(result);
+                }
             }
+
             if (!_context.ProfileUsers.Any())
             {
                 //Add new data
@@ -39,7 +49,8 @@ namespace ProfileMaker.Models.Seeds
                 {
                     FirstName = "Mathias",
                     LastName = "Claesson",
-                    Email = "mathias.claesson@outlook.com",
+                    Email = "mathias@mail.com",
+                    UserName = "mathias",
                     UserImage = "ImagePath/set/later/in/project",
                     CompanyName = "CA Advertising AB",
                     Address = "Hammarby Allé 132",

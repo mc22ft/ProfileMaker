@@ -12,6 +12,7 @@ using ProfileMaker.ViewModels;
 using ProfileMaker.Models.Seeds;
 using ProfileMaker.Controllers.Api;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Mvc;
 
 namespace ProfileMaker
 {
@@ -31,7 +32,12 @@ namespace ProfileMaker
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc()
+            services.AddMvc(config =>
+            {
+#if !DEBUG
+                config.Filters.Add(new RequireHttpsAttribute());
+#endif
+            })
                 .AddJsonOptions(opt =>
                 {
                     //Set lower case in Json Api for better include javascript in Api
