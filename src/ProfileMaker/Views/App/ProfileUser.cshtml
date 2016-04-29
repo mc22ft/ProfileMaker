@@ -4,8 +4,18 @@
 @{ 
     ViewBag.Title = "Home Page";
 }
+@section Scripts {
+    <script src="~/lib/angular/angular.min.js"></script>
+    <script src="~/js/app-profileUser.js"></script>
+    <script src="~/js/profileUserController.js"></script>
+}
 
-<div class="row">
+<div class="row" data-ng-app="app-profileUser">
+
+    <div ng-controller="profileUserController as vm" class="col-md-6 col-md-offset-3">
+        {{vm.name}}
+    </div>
+
     <div class="col-md-6">
         <h1>Profile Maker!</h1>
         <p>This is my webb!</p>
