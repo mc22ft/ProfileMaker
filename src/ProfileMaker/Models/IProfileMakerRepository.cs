@@ -8,7 +8,8 @@ namespace ProfileMaker.Models
         IEnumerable<ProfileUser> GetAllProfileUsersWithAllInfo();
         void AddTrip(ProfileUser newProfileUser);
         bool SaveAll();
-        ProfileUser GetProfileUserByName(string profileUserName);
-        void AddOtherCourse(string profileUserFirstName, OtherCourse newOtherCourse);
+        ProfileUser GetProfileUserByName(string profileUserName, string username);
+        void AddOtherCourse(string profileUserFirstName, string username, OtherCourse newOtherCourse);
+        IEnumerable<ProfileUser> GetProfileUserWithAllInfo(string name);
     }
 }

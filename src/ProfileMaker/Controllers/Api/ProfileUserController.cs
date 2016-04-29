@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Mvc;
 using Microsoft.Extensions.Logging;
 using ProfileMaker.Models;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace ProfileMaker.Controllers.Api
 {
+    [Authorize]
     [Route("api/users")]
     public class ProfileUserController : Controller
     {
@@ -28,11 +30,13 @@ namespace ProfileMaker.Controllers.Api
         public JsonResult Get()
         {
             //Not work well with mapper? Not all tabels in db
-            //var restults = Mapper.Map<IEnumerable<ProfileUserViewModel>>(_repository.GetAllProfileUsersWithAllInfo());
-            //return Json(restults);
-
-            var result = _repository.GetAllProfileUsersWithAllInfo();
+            var users = _repository.GetProfileUserWithAllInfo(User.Identity.Name);
+            var result = Mapper.Map<IEnumerable<ProfileUserViewModel>>(users);
             return Json(result);
+
+            //Get all results frpm all tables - Not mapped
+            //var result = _repository.GetAllProfileUsersWithAllInfo();
+            //return Json(result);
         }
 
         [HttpPost("")]
@@ -44,6 +48,8 @@ namespace ProfileMaker.Controllers.Api
                 {
                     //Mapper
                     var newProfileUser = Mapper.Map<ProfileUser>(vm);
+
+                    newProfileUser.UserName = User.Identity.Name;
 
                     //Logger
                     _logger.LogInformation("Attemting to save new profile user");

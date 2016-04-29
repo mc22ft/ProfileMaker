@@ -18,9 +18,9 @@ namespace ProfileMaker.Models
             _logger = logger;
         }
 
-        public void AddOtherCourse(string profileUserFirstName, OtherCourse newOtherCourse)
+        public void AddOtherCourse(string profileUserFirstName, string username, OtherCourse newOtherCourse)
         {
-            var theProfileUser = GetProfileUserByName(profileUserFirstName);
+            var theProfileUser = GetProfileUserByName(profileUserFirstName, username);
             newOtherCourse.Order = theProfileUser.OtherCourses.Max(s => s.Order) + 1;
             theProfileUser.OtherCourses.Add(newOtherCourse);
             _context.OtherCourses.Add(newOtherCourse);
@@ -65,11 +65,32 @@ namespace ProfileMaker.Models
            
         }
 
-        public ProfileUser GetProfileUserByName(string profileUserName)
+        public ProfileUser GetProfileUserByName(string profileUserName, string username)
         {
             return _context.ProfileUsers.Include(t => t.OtherCourses)
-               .Where(t => t.FirstName == profileUserName)
+               .Where(t => t.FirstName == profileUserName && t.UserName == username)
                .FirstOrDefault();
+        }
+
+        public IEnumerable<ProfileUser> GetProfileUserWithAllInfo(string name)
+        {
+            try
+            {
+                return _context.ProfileUsers
+                   .Include(p => p.Educations)
+                   .Include(p => p.OtherCourses)
+                   .Include(p => p.TechniqueAreas)
+                   .Include(p => p.ProjectExperiences)
+                   .ThenInclude(t => t.TechnicalEnvironments)
+                   .OrderBy(p => p.FirstName)
+                   .Where(P => P.UserName == name)
+                   .ToList();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Could not get users with info from database", ex);
+                return null;
+            }
         }
 
         public bool SaveAll()

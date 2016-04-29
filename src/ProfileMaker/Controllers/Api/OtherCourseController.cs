@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Mvc;
 using Microsoft.Extensions.Logging;
 using ProfileMaker.Models;
@@ -10,6 +11,9 @@ using System.Threading.Tasks;
 
 namespace ProfileMaker.Controllers.Api
 {
+    //THIS IS RAW MODEL OF OTHER CONTROLLERS!!!
+
+    [Authorize]
     [Route("api/users/{ProfileUserFirstName}/OtherCourses")]
     public class OtherCourseController : Controller
     {
@@ -29,7 +33,7 @@ namespace ProfileMaker.Controllers.Api
         {
             try
             {
-                var results = _repository.GetProfileUserByName(ProfileUserFirstName);
+                var results = _repository.GetProfileUserByName(ProfileUserFirstName, User.Identity.Name);
                 if (results == null)
                 {
                     return Json(null);
@@ -56,7 +60,7 @@ namespace ProfileMaker.Controllers.Api
                     var newOtherCourse = Mapper.Map<OtherCourse>(vm);
 
                     //Save to Database
-                    _repository.AddOtherCourse(profileUserFirstName, newOtherCourse);
+                    _repository.AddOtherCourse(profileUserFirstName, User.Identity.Name, newOtherCourse);
 
                     if (_repository.SaveAll())
                     {
